@@ -1,0 +1,7 @@
+{
+  "routeur" : "Les données si dessous répresentent les routeur down depuis + de",
+  "SLA_routeur_standard" : "",
+  "SLA_routeur_standard_format" : "heures",
+  "SLA_routeur_corporate":"0",
+  "SLA_routeur_corporate_format":"minutes"
+}
