@@ -30,22 +30,33 @@
 
             <ul>
                 <% todolist.forEach(function(todo, index) { %>
+                <div class="row">
                     <div class="alert alert-info" role="alert">
-                        <p><%= todo %><a class="btn btn-info" href="/wup/delete/">Voir detail</a></p>
+                        <div class="col-sm-8"><%= todo %></div>
+                        <div class="col-sm-4">
+                            <select class="form-control">
+                                <option>Reboot Equipement</option>
+                                <option>Résolution Niv 1</option>
+                                <option>Résolution Niv 2</option>
+                                <option>Escalade support </option>
+                                <option>Escalade Interne</option>
+                            </select>
+                            <a class="btn btn-info" href="/wup/delete/<%= index %>">Supprimer</a>
+                        </div>
                     </div>
-
+                </div>
                 <% }); %>
             </ul>
 
             <form action="/wup/add/" method="post">
-                <p>
-                    <label for="newtodo">Ajout</label>
-                    <input type="text" name="newtodo" id="newtodo" placeholder="Je rajoute une entrée"
+                <div class="form-group">
+                    <label for="libelle">Libelle de l'entitée</label>
+                    <input type="text" name="libelle" id="libelle" placeholder="Code_Entitee + Nom magasin"
                            class="form-control" autofocus />
-                    <small class="form-text text-muted">Cette entrée sera ajoutée au WUP du jour</small>
-                    <br>
+                    <small class="form-text text-muted">Ne pas oublier le code Magasin !</small>
+                    <label for="libelle">Les actions effectuées : </label>
                     <input type="submit" class="btn btn-primary" />
-                </p>
+                </div>
             </form>
         </div>
         <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div>
