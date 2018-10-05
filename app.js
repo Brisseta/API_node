@@ -28,8 +28,9 @@ on en crée une vide sous forme d'array avant la suite */
 .post('/wup/add/', urlencodedParser, function(req, res) {
     if (req.body.libelle !== '') {
         var nouvelle_entry = new Entry(req.body.libelle);
-        nouvelle_entry.save_Entry_to_DB(this);
+        // nouvelle_entry.save_Entry_to_DB(this);
         req.session.todolist.push(nouvelle_entry.toString());
+        console.log(nouvelle_entry.toString())
     }
     res.redirect('/todo');
 })
@@ -58,7 +59,6 @@ class Entry {
         this._SLA = SLA;
     }
 
-
     get libelle() {
         return this._libelle;
     }
@@ -82,7 +82,9 @@ class Entry {
     set action(value) {
         this._action = value;
     }
-
+    toString(){
+        return JSON.stringify({libelle:this.libelle,ip:this.ip,statut:this.statut,SLA:this.SLA,action:this.action});
+    }
     save_Entry_to_DB(entry){
         var db = mongoose.connect('mongodb://localhost:27017/WUP',{ useNewUrlParser: true });
         autoIncrement.initialize(mongoose.connection);
@@ -101,4 +103,5 @@ class Entry {
             console.log("entrée ajoutée" + entry_tosave);
         });
     }
+
 }
