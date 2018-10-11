@@ -5,6 +5,8 @@
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="ipInput.css">
+        <script src="ipInput.js"></script>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
         <title>Le WUP du Jour</title>
         <style>
@@ -30,10 +32,10 @@
                 <table class="table">
                     <thead>
                     <tr>
-                        <th scope="libelle">Libelle</th>
-                        <th scope="IP">Ipv4</th>
-                        <th scope="statut">Statut</th>
-                        <th scope="SLA">SLA</th>
+                        <th scope="EnseignePays">Enseigne-Pays</th>
+                        <th scope="Code">Code Magasin</th>
+                        <th scope="IPv4">IPv4</th>
+                        <th scope="type">statut</th>
                         <th scope="action">Action Hotline</th>
                         <th scope="supprimer"></th>
                         <th scope="valider"></th>
@@ -41,9 +43,9 @@
                     </thead>
                     <% todolist.forEach(function(todo, index) { %>
                     <tr class="table-info">
-                        <td><%= todo %></td>
-                        <td></td>
-                        <td></td>
+                        <td><%= todo.enseignepays %></td>
+                        <td><%= todo.code %></td>
+                        <td><%= todo.ip %></td>
                         <td></td>
                         <td> <select class="form-control">
                                 <option>Reboot Equipement</option>
@@ -61,68 +63,44 @@
             </div>
             <form action="/wup/add/" method="post">
                     <div class="form-row">
-                        <div class="col-md-4 mb-3">
-                            <label for="validationServer01">First name</label>
-                            <input type="text" class="form-control is-valid" id="validationServer01" placeholder="First name" value="Mark" required>
-                            <div class="valid-feedback">
-                                Looks good!
-                            </div>
+                        <div class="col-md-2 mb-3">
+                            <label for="EnseignePays">Enseigne-Pays</label>
+                            <select class="form-control">
+                                <option>PAUL-FR</option>
+                                <option>PAUL-IN</option>
+                                <option>LAD-FR</option>
+                                <option>LAD-IN</option>
+                                <option>PANAPRO</option>
+                                <option>HOLDER</option>
+                            </select>
                         </div>
-                        <div class="col-md-4 mb-3">
-                            <label for="validationServer02">Last name</label>
-                            <input type="text" class="form-control is-valid" id="validationServer02" placeholder="Last name" value="Otto" required>
-                            <div class="valid-feedback">
-                                Looks good!
-                            </div>
+                        <div class="col-md-1 mb-3">
+                            <label for="Code">Code</label>
+                            <input type="text" class="form-control is-valid" id="Code" placeholder="Last name" value="999" required>
                         </div>
-                        <div class="col-md-4 mb-3">
-                            <label for="validationServerUsername">Username</label>
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="inputGroupPrepend3">@</span>
-                                </div>
-                                <input type="text" class="form-control is-invalid" id="validationServerUsername" placeholder="Username" aria-describedby="inputGroupPrepend3" required>
-                                <div class="invalid-feedback">
-                                    Please choose a username.
-                                </div>
-                            </div>
+                        <div class="col-md-2 mb-3">
+                            <label for="ip">Ip équipement</label>
+                            <input type="text" class="form-control is-invalid" id="ip" placeholder="172.0.0.0" required>
+                        </div>
+                        <div class="col-md-2 mb-3">
+                            <label for="type">Type d'équipement</label>
+                            <select class="form-control">
+                                <option>Imprimante</option>
+                                <option>Caisse</option>
+                                <option>Switch</option>
+                                <option>TPE</option>
+                                <option>Routeur</option>
+                                <option>PLV</option>
+                            </select>
                         </div>
                     </div>
                     <div class="form-row">
-                        <div class="col-md-6 mb-3">
-                            <label for="validationServer03">City</label>
-                            <input type="text" class="form-control is-invalid" id="validationServer03" placeholder="City" required>
-                            <div class="invalid-feedback">
-                                Please provide a valid city.
-                            </div>
-                        </div>
-                        <div class="col-md-3 mb-3">
-                            <label for="validationServer04">State</label>
-                            <input type="text" class="form-control is-invalid" id="validationServer04" placeholder="State" required>
-                            <div class="invalid-feedback">
-                                Please provide a valid state.
-                            </div>
-                        </div>
-                        <div class="col-md-3 mb-3">
-                            <label for="validationServer05">Zip</label>
-                            <input type="text" class="form-control is-invalid" id="validationServer05" placeholder="Zip" required>
-                            <div class="invalid-feedback">
-                                Please provide a valid zip.
-                            </div>
+                        <div class="col-md-5 mb-3">
+                            <label for="action">Action</label>
+                            <input type="text" class="form-control" id="type" placeholder="Action Hotline">
                         </div>
                     </div>
-                    <div class="form-group">
-                        <div class="form-check">
-                            <input class="form-check-input is-invalid" type="checkbox" value="" id="invalidCheck3" required>
-                            <label class="form-check-label" for="invalidCheck3">
-                                Agree to terms and conditions
-                            </label>
-                            <div class="invalid-feedback">
-                                You must agree before submitting.
-                            </div>
-                        </div>
-                    </div>
-                    <button class="btn btn-primary" type="submit">Submit form</button>
+                    <button class="btn btn-primary" type="submit">Ajouter</button>
                 </form>
         </div>
         <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div>

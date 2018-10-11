@@ -26,8 +26,10 @@ on en crée une vide sous forme d'array avant la suite */
 })
 /* On ajoute un élément à la todolist */
 .post('/wup/add/', urlencodedParser, function(req, res) {
-    if (req.body.libelle !== '') {
-        var nouvelle_entry = new Entry(req.body.libelle);
+    console.log(req.body);
+    if (req.body !== '') {
+        var nouvelle_entry = new Entry(req.body.enseignepays,req.body.code,req.body.ip,req.body.type,req.body.action);
+        console.log(req.body);
         // nouvelle_entry.save_Entry_to_DB(this);
         req.session.todolist.push(nouvelle_entry.toString());
         console.log(nouvelle_entry.toString())
@@ -51,28 +53,29 @@ on en crée une vide sous forme d'array avant la suite */
 
 class Entry {
 
-    constructor(libelle,ip,statut,SLA){
-        this._action = "à renseigner";
-        this._libelle = libelle;
+    constructor(enseignepays,code,ip,type,action){
+        this._enseignepays = enseignepays;
+        this._code = code;
         this._ip = ip;
-        this._statut = statut;
-        this._SLA = SLA;
+        this._type = type;
+        this._action = action;
     }
 
-    get libelle() {
-        return this._libelle;
+
+    get enseignepays() {
+        return this._enseignepays;
+    }
+
+    get code() {
+        return this._code;
     }
 
     get ip() {
         return this._ip;
     }
 
-    get statut() {
-        return this._statut;
-    }
-
-    get SLA() {
-        return this._SLA;
+    get type() {
+        return this._type;
     }
 
     get action() {
@@ -82,9 +85,7 @@ class Entry {
     set action(value) {
         this._action = value;
     }
-    toString(){
-        return JSON.stringify({libelle:this.libelle,ip:this.ip,statut:this.statut,SLA:this.SLA,action:this.action});
-    }
+
     save_Entry_to_DB(entry){
         var db = mongoose.connect('mongodb://localhost:27017/WUP',{ useNewUrlParser: true });
         autoIncrement.initialize(mongoose.connection);
